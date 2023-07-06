@@ -1,14 +1,15 @@
 import React from "react";
 import logo from "../assets/images/logo.svg";
-import themeIco from "../assets/images/icon-moon.svg";
+import themeIcoLight from "../assets/images/icon-moon.svg";
 import classNames from "classnames";
 import sliderLight from "../assets/images/slider-light.png";
+import sliderDark from "../assets/images/slider-dark.png";
 import { SearchBar } from "./SearchBar";
 import { useDict } from "../utils/DictContext";
 import { Link } from "react-router-dom";
 
 export const Nav: React.FC = () => {
-  const { search, setSearch } = useDict();
+  const { search, setSearch, setTheme, theme } = useDict();
 
   return (
     <main>
@@ -19,7 +20,7 @@ export const Nav: React.FC = () => {
           "flex-row",
           "justify-between",
           "items-center",
-          "mt-10",
+          "pt-10",
         )}
       >
         <Link to="/">
@@ -33,8 +34,10 @@ export const Nav: React.FC = () => {
             "space-x-6",
           )}
         >
-          <img className="h-4" src={sliderLight} />
-          <img className="h-6" src={themeIco} />
+          <button onClick={() => setTheme(!theme)}>
+            <img className="h-8" src={theme ? sliderDark : sliderLight} />
+          </button>
+          <img className="h-6" src={themeIcoLight} />
         </div>
       </nav>
       <SearchBar

@@ -5,17 +5,22 @@ import "../src/index.css";
 import { Nav } from "./components/Nav";
 import classNames from "classnames";
 import { DictionaryResult } from "./utils/DictApi";
+import { useDict } from "./utils/DictContext";
 
 export const App: React.FC = () => {
+  const { theme } = useDict();
+
   return (
     <Router>
-      <div className={classNames("w-7/12 mx-auto")}>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/:search" element={<DictionaryResult />} />
-        </Routes>
-      </div>
+      <main className={theme ? "light" : "dark"}>
+        <div className={classNames(`w-7/12`, `mx-auto`, "h-screen")}>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/:search" element={<DictionaryResult />} />
+          </Routes>
+        </div>
+      </main>
     </Router>
   );
 };

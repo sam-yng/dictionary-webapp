@@ -20,19 +20,20 @@ export const DictionaryResult: React.FC = () => {
     staleTime: Infinity,
   });
   const definition = wordQuery.data;
-  // const isFetching = useIsFetching();
 
   if (wordQuery.isError) {
     throw new Error("Something went wrong...");
   }
 
-  // if (search !== definition[0].word) {
-  //   return null;
-  // }
+  const getData = (path: Array<string | number>): string | unknown => {
+    const data = R.path(path);
+    const result = data(definition);
+    return result;
+  };
 
-  const getWord = R.path([0, "word"]);
-  const getPhonetics = R.path([0, "phonetic"]);
-  const getMeanings = R.path([
+  const wordResult = getData([0, "word"]);
+  const phoneticResult = getData([0, "phonetic"]);
+  const meaningsResult = getData([
     0,
     "meanings",
     0,
@@ -40,10 +41,6 @@ export const DictionaryResult: React.FC = () => {
     0,
     "definition",
   ]);
-
-  const wordResult: string | unknown = getWord(definition);
-  const phoneticResult: string | unknown = getPhonetics(definition);
-  const meaningsResult: string | unknown = getMeanings(definition);
 
   return (
     <main className={classNames("mt-4", "mx-2")}>
