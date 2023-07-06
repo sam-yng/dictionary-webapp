@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import React from "react";
-import { useIsFetching, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useDict } from "./DictContext";
 import classNames from "classnames";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

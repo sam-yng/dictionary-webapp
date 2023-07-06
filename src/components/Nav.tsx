@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../assets/images/logo.svg";
 import themeIcoLight from "../assets/images/icon-moon.svg";
+import themeIcoDark from "../assets/images/icon-moon-dark.png";
 import classNames from "classnames";
 import sliderLight from "../assets/images/slider-light.png";
 import sliderDark from "../assets/images/slider-dark.png";
@@ -37,7 +38,7 @@ export const Nav: React.FC = () => {
           <button onClick={() => setTheme(!theme)}>
             <img className="h-8" src={theme ? sliderDark : sliderLight} />
           </button>
-          <img className="h-6" src={themeIcoLight} />
+          <img className="h-6" src={theme ? themeIcoLight : themeIcoDark} />
         </div>
       </nav>
       <SearchBar
