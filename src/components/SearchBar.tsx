@@ -19,7 +19,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   name,
   value,
 }) => {
-  const { search } = useDict();
+  const { search, theme } = useDict();
   const navigate = useNavigate();
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +41,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         "h-14",
         "px-4",
         "mt-10",
-        "bg-midopaque",
+        `${theme ? "bg-midopaque" : "bg-midgray"}`,
       )}
     >
       <input
@@ -49,7 +49,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           "w-full",
           "active:outline-none",
           "focus:outline-none",
-          "bg-midopaque",
+          `${theme ? "bg-midopaque" : "bg-midgray"}`,
         )}
         value={value}
         name={name}
@@ -57,7 +57,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         onChange={onChangeHandler}
         placeholder={placeholder}
       />
-
       <Link to={`/${search}`}>
         <img src={mag} />
       </Link>

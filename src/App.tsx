@@ -13,7 +13,14 @@ export const App: React.FC = () => {
   return (
     <Router>
       <main className={theme ? "light" : "dark"}>
-        <div className={classNames(`w-7/12`, `mx-auto`, "h-screen")}>
+        <div
+          className={classNames(
+            `w-7/12`,
+            `mx-auto`,
+            "h-screen",
+            "overflow-y-scroll",
+          )}
+        >
           <Nav />
           <Routes>
             <Route path="/" element={<Main />} />
