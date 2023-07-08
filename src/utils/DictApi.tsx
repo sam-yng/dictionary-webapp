@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import * as R from "ramda";
 import { useLocation } from "react-router-dom";
+import { NoResponse } from "../components/NoResponse";
 
 async function fetchDef(word: string) {
   const res = await fetch(
@@ -19,25 +20,16 @@ export const DictionaryResult: React.FC = () => {
   const location = useLocation();
 
   const wordQuery = useQuery(["word", location], () => fetchDef(search));
-  const definition = wordQuery.data;
+  const queryReturn = wordQuery.data;
+  const mappedQuery = new Map();
 
-  if (definition?.title) {
+  if (queryReturn?.title) {
     return (
-      <main
-        className={classNames(
-          "flex",
-          "flex-col",
-          "justify-center",
-          "text-center",
-          "space-y-6",
-        )}
-      >
-        <h1 className="text-6xl">😐</h1>
-        <h1 className="text-xl">{definition.title}</h1>
-        <p className="text-lg">
-          {definition.message} {definition.resolution}
-        </p>
-      </main>
+      <NoResponse
+        title={queryReturn.title}
+        message={queryReturn.message}
+        resolution={queryReturn.resolution}
+      />
     );
   }
 
@@ -45,23 +37,23 @@ export const DictionaryResult: React.FC = () => {
     return <p>Something went wrong</p>;
   }
 
-  const getData = (path: Array<string | number>): string | unknown => {
+  function getData(path: Array<string | number>): string | unknown {
     const data = R.path(path);
-    const result = data(definition);
+    const result = data(queryReturn);
     return result;
-  };
+  }
 
   const wordResult = getData([0, "word"]);
   const phoneticResult = getData([0, "phonetic"]);
   const partOfSpeech = getData([0, "meanings", 0, "partOfSpeech"]);
 
-  function getLength(): number {
-    return definition
+  function getDefLength(): number {
+    return queryReturn
       ? (getData([0, "meanings", 0, "definitions"]) as string[]).length
       : 0;
   }
 
-  const defLength = getLength();
+  const defLength = getDefLength();
 
   function getMeanings() {
     const meaningsArr: string[] = [];
@@ -74,6 +66,12 @@ export const DictionaryResult: React.FC = () => {
   }
 
   const meaningsResult = getMeanings();
+
+  if (queryReturn && !queryReturn.title) {
+    for (let i = 0; i < queryReturn.length; i++) {
+      mappedQuery.set(`${wordResult} #${i + 1}`, getData([i, "meanings"]));
+    }
+  }
 
   return (
     <main className={classNames("mt-10")}>

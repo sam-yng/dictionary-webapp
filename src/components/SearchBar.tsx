@@ -50,6 +50,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           "active:outline-none",
           "focus:outline-none",
           `${theme ? "bg-midopaque" : "bg-midgray"}`,
+          "font-bold",
         )}
         value={value}
         name={name}
