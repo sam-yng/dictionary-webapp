@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from "react";
 import logo from "../assets/images/logo.svg";
 import themeIcoLight from "../assets/images/icon-moon.svg";
@@ -13,7 +14,8 @@ import { Select, MenuItem } from "@mui/material";
 export const Nav: React.FC = () => {
   const { search, setSearch, setTheme, theme, font, setFont } = useDict();
 
-  const handleChange = (event: { target: { value: string } }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChange = (event: any) => {
     setFont(event.target.value);
   };
 
@@ -40,17 +42,32 @@ export const Nav: React.FC = () => {
             "space-x-6",
           )}
         >
-          <div id="select">
-            <Select
-              className={classNames("h-10")}
-              onChange={handleChange}
-              value={font}
-            >
-              <MenuItem value={"SansSerif"}>Sans Serif</MenuItem>
-              <MenuItem value={"Serif"}>Serif</MenuItem>
-              <MenuItem value={"Mono"}>Mono</MenuItem>
-            </Select>
-          </div>
+          <Select
+            sx={{
+              boxShadow: "none",
+              ".MuiOutlinedInput-notchedOutline": {
+                border: 0,
+              },
+              color: `${theme ? "black" : "white"}`,
+              "& .MuiSvgIcon-root": {
+                color: `${theme ? "black" : "white"}`,
+              },
+              fontFamily: `${font}`,
+            }}
+            className={classNames("h-10", "overflow-hidden", "text-purple")}
+            onChange={handleChange}
+            value={font}
+          >
+            <MenuItem sx={{ fontFamily: "sansserif" }} value={"sansserif"}>
+              Sans Serif
+            </MenuItem>
+            <MenuItem sx={{ fontFamily: "serif" }} value={"serif"}>
+              Serif
+            </MenuItem>
+            <MenuItem sx={{ fontFamily: "mono" }} value={"mono"}>
+              Mono
+            </MenuItem>
+          </Select>
           <button onClick={() => setTheme(!theme)}>
             <img className="h-8" src={theme ? sliderDark : sliderLight} />
           </button>

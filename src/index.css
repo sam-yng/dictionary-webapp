@@ -11,3 +11,18 @@
 	background-color: white;
 	color: black
 }
+
+@font-face {
+	font-family: "sansserif";
+	src: url("./assets/fonts/sansserif.ttf");
+}
+
+@font-face {
+	font-family: "serif";
+	src: url("./assets/fonts/serif.ttf");
+}
+
+@font-face {
+	font-family: "mono";
+	src: url("./assets/fonts/mono.ttf");
+}

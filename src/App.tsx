@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Main } from "./pages/Main";
@@ -8,11 +9,24 @@ import { DictionaryResult } from "./utils/DictApi";
 import { useDict } from "./utils/DictContext";
 
 export const App: React.FC = () => {
-  const { theme } = useDict();
+  const { theme, font } = useDict();
 
   return (
     <Router>
-      <main className={theme ? "light" : "dark"}>
+      <main
+        className={classNames(
+          `${theme ? "light" : "dark"}`,
+          `${
+            font === "sansserif"
+              ? "font-sansserif"
+              : font === "mono"
+              ? "font-mono"
+              : font === "serif"
+              ? "font-serif"
+              : ""
+          }`,
+        )}
+      >
         <div
           className={classNames(
             `w-7/12`,

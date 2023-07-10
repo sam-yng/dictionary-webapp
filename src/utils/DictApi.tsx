@@ -16,12 +16,15 @@ async function fetchDef(word: string) {
 }
 
 export const DictionaryResult: React.FC = () => {
-  const { search } = useDict();
+  const { search, valid } = useDict();
   const location = useLocation();
 
-  const wordQuery = useQuery(["word", location], () => fetchDef(search));
+  const wordQuery = useQuery(["word", location], () => fetchDef(search), {
+    enabled: !!valid,
+  });
+
   const queryReturn = wordQuery.data;
-  const mappedQuery = new Map();
+  // const mappedQuery = new Map();
 
   if (queryReturn?.title) {
     return (
@@ -67,19 +70,27 @@ export const DictionaryResult: React.FC = () => {
 
   const meaningsResult = getMeanings();
 
-  if (queryReturn && !queryReturn.title) {
-    for (let i = 0; i < queryReturn.length; i++) {
-      mappedQuery.set(`${wordResult} #${i + 1}`, getData([i, "meanings"]));
-    }
-  }
+  // if (queryReturn && !queryReturn.title) {
+  //   for (let i = 0; i < queryReturn.length; i++) {
+  //     mappedQuery.set(`${wordResult} #${i + 1}`, getData([i, "meanings"]));
+  //   }
+  // }
 
   return (
-    <main className={classNames("mt-10")}>
+    <main>
       {wordQuery.fetchStatus === "idle" &&
       wordQuery.isLoading ? null : wordQuery.isLoading ? (
         <p>Loading Definition...</p>
       ) : (
-        <main className={classNames("flex", "flex-col", "my-auto", "h-[60%]")}>
+        <main
+          className={classNames(
+            "flex",
+            "flex-col",
+            "my-auto",
+            "h-[60%]",
+            "mt-12",
+          )}
+        >
           {typeof wordResult === "string" ? (
             <h1 className={classNames("text-6xl", "font-bold")}>
               {wordResult}

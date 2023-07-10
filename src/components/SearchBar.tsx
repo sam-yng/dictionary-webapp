@@ -19,11 +19,19 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   name,
   value,
 }) => {
-  const { search, theme } = useDict();
+  const { search, theme, setValid, valid } = useDict();
   const navigate = useNavigate();
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(event.target.value);
+  };
+
+  const onClickHandler = () => {
+    if (search.length > 0) {
+      setValid(true);
+    } else {
+      setValid(false);
+    }
   };
 
   useEffect(() => {
@@ -31,36 +39,46 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   }, []);
 
   return (
-    <div
-      className={classNames(
-        "flex",
-        "flex-row",
-        "h-14",
-        "items-center",
-        "rounded-xl",
-        "h-14",
-        "px-4",
-        "mt-10",
-        `${theme ? "bg-midopaque" : "bg-midgray"}`,
-      )}
-    >
-      <input
+    <>
+      <div
         className={classNames(
-          "w-full",
-          "active:outline-none",
-          "focus:outline-none",
+          "flex",
+          "flex-row",
+          "h-14",
+          "items-center",
+          "rounded-xl",
+          "h-14",
+          "px-4",
+          "mt-10",
           `${theme ? "bg-midopaque" : "bg-midgray"}`,
-          "font-bold",
+          `${valid ? "" : "border-2 border-red"}`,
         )}
-        value={value}
-        name={name}
-        type={type}
-        onChange={onChangeHandler}
-        placeholder={placeholder}
-      />
-      <Link to={`/${search}`}>
-        <img src={mag} />
-      </Link>
-    </div>
+      >
+        <input
+          className={classNames(
+            "w-full",
+            "active:outline-none",
+            "focus:outline-none",
+            `${theme ? "bg-midopaque" : "bg-midgray"}`,
+            "font-bold",
+          )}
+          value={value}
+          name={name}
+          type={type}
+          onChange={onChangeHandler}
+          placeholder={placeholder}
+        />
+        <Link to={`/${search}`}>
+          <button onClick={onClickHandler}>
+            <img src={mag} />
+          </button>
+        </Link>
+      </div>
+      {valid ? (
+        <p></p>
+      ) : (
+        <p className={classNames("text-red")}>Whoops, can&apos;t be empty</p>
+      )}
+    </>
   );
 };

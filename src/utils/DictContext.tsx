@@ -5,9 +5,13 @@ export type DictContextType = {
   setSearch: (search: string) => void;
   theme: boolean;
   setTheme: (theme: boolean) => void;
-  font: string;
-  setFont: (font: string) => void;
+  font: FontState;
+  setFont: (font: FontState) => void;
+  valid: boolean;
+  setValid: (valid: boolean) => void;
 };
+
+export type FontState = "sansserif" | "serif" | "mono";
 
 const DictContext = createContext<DictContextType | undefined>(undefined);
 
@@ -16,7 +20,8 @@ export const DictProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [search, setSearch] = useState<string>("");
   const [theme, setTheme] = useState<boolean>(true);
-  const [font, setFont] = useState<string>("SansSerif");
+  const [font, setFont] = useState<FontState>("sansserif");
+  const [valid, setValid] = useState<boolean>(true);
 
   const value = useMemo(
     () => ({
@@ -26,8 +31,10 @@ export const DictProvider: React.FC<{ children: React.ReactNode }> = ({
       setTheme,
       font,
       setFont,
+      valid,
+      setValid,
     }),
-    [search, setSearch, theme, setTheme, font, setFont],
+    [search, setSearch, theme, setTheme, font, setFont, valid, setValid],
   );
 
   return <DictContext.Provider value={value}>{children}</DictContext.Provider>;

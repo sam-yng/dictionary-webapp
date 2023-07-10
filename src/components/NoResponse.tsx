@@ -20,11 +20,12 @@ export const NoResponse: React.FC<NoResponseProps> = ({
         "justify-center",
         "text-center",
         "space-y-6",
+        "mt-36",
       )}
     >
       <h1 className="text-6xl">😐</h1>
-      <h1 className="text-xl">{title}</h1>
-      <p className="text-lg">
+      <h1 className="text-xl font-bold">{title}</h1>
+      <p className="text-lg text-lightgray">
         {message} {resolution}
       </p>
     </main>

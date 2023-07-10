@@ -16,7 +16,13 @@ export default {
       "midopaque": "#F4F4F4",
       "darkopaque": "#E9E9E9"
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        sansserif: ["sansserif"],
+        serif: ["serif"],
+        mono: ["mono"]
+      },
+    },
   },
   plugins: [],
 }
