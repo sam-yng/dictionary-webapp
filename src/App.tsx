@@ -5,7 +5,7 @@ import { Main } from "./pages/Main";
 import "../src/index.css";
 import { Nav } from "./components/Nav";
 import classNames from "classnames";
-import { DictionaryResult } from "./utils/DictApi";
+import { DictionaryResult } from "./utils/DictionaryResult";
 import { useDict } from "./utils/DictContext";
 
 export const App: React.FC = () => {

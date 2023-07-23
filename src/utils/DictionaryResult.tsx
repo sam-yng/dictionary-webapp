@@ -19,12 +19,13 @@ export const DictionaryResult: React.FC = () => {
   const { search, valid } = useDict();
   const location = useLocation();
 
+  // const { data, error, etc. } = useQuery()
   const wordQuery = useQuery(["word", location], () => fetchDef(search), {
     enabled: !!valid,
   });
 
+  // const queryReturn = data
   const queryReturn = wordQuery.data;
-  // const mappedQuery = new Map();
 
   if (queryReturn?.title) {
     return (
