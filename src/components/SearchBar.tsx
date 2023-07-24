@@ -1,42 +1,21 @@
 import classNames from "classnames";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import mag from "../assets/images/icon-search.svg";
-import { useDict } from "../utils/DictContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type SearchBarProps = {
   placeholder: string;
-  onChange?: (value: string) => void;
   type: string;
   name: string;
-  value?: string;
 };
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   placeholder,
-  onChange,
   type,
   name,
-  value,
 }) => {
-  const { search, theme, setValid, valid } = useDict();
   const navigate = useNavigate();
-
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(event.target.value);
-  };
-
-  const onClickHandler = () => {
-    if (search.length > 0) {
-      setValid(true);
-    } else {
-      setValid(false);
-    }
-  };
-
-  useEffect(() => {
-    navigate("/");
-  }, []);
+  const [input, setInput] = useState<string>("");
 
   return (
     <>
@@ -50,8 +29,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           "h-14",
           "px-4",
           "mt-10",
-          `${theme ? "bg-midopaque" : "bg-midgray"}`,
-          `${valid ? "" : "border-2 border-red"}`,
+          "border",
+          !input && "border-red",
         )}
       >
         <input
@@ -59,24 +38,19 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             "w-full",
             "active:outline-none",
             "focus:outline-none",
-            `${theme ? "bg-midopaque" : "bg-midgray"}`,
             "font-bold",
           )}
-          value={value}
+          value={input}
           name={name}
           type={type}
-          onChange={onChangeHandler}
+          onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
         />
-        <Link to={`/${search}`}>
-          <button onClick={onClickHandler}>
-            <img src={mag} />
-          </button>
-        </Link>
+        <button onClick={() => navigate(`/${input}`)}>
+          <img src={mag} />
+        </button>
       </div>
-      {valid ? (
-        <p></p>
-      ) : (
+      {!input && (
         <p className={classNames("text-red")}>Whoops, can&apos;t be empty</p>
       )}
     </>

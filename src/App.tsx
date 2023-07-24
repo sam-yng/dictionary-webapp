@@ -5,28 +5,12 @@ import { Main } from "./pages/Main";
 import "../src/index.css";
 import { Nav } from "./components/Nav";
 import classNames from "classnames";
-import { DictionaryResult } from "./utils/DictionaryResult";
-import { useDict } from "./utils/DictContext";
+import { DictionaryResult } from "./pages/DictionaryResult";
 
 export const App: React.FC = () => {
-  const { theme, font } = useDict();
-
   return (
     <Router>
-      <main
-        className={classNames(
-          `${theme ? "light" : "dark"}`,
-          `${
-            font === "sansserif"
-              ? "font-sansserif"
-              : font === "mono"
-              ? "font-mono"
-              : font === "serif"
-              ? "font-serif"
-              : ""
-          }`,
-        )}
-      >
+      <main>
         <div
           className={classNames(
             `w-7/12`,

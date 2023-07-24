@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 export type APIQueryWordMeaning = {
 	partOfSpeech: string;
 	definitions: Array<{ definition: string }>;
@@ -14,13 +15,10 @@ export type APIQueryResponse = APIQueryResult[];
 export type DictionaryDefinition = {
 	word: string;
 	phonetic: string;
-	meaning: string; // first meaning in list of meanings
-	definition: string; // first definition in list of definitions for first meaning
+	definition: string;
 }
 
 export const mapQueryResponseToDictionaryDefinition =
 	(query: APIQueryResult): DictionaryDefinition => {
-	 
-	}
 
-// export const useWordQuery = (word: string) => {}
+}
