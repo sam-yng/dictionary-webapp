@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import mag from "../assets/images/icon-search.svg";
 import { useNavigate } from "react-router-dom";
+import { useDictionarySearchResults } from "../utils/useDictionarySearchResults";
 
 type SearchBarProps = {
   placeholder: string;
@@ -16,6 +17,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const navigate = useNavigate();
   const [input, setInput] = useState<string>("");
+  const { dictionaryWord } = useDictionarySearchResults();
+
+  const shouldShowWhoops = !input.length && !dictionaryWord;
 
   return (
     <>
@@ -30,7 +34,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           "px-4",
           "mt-10",
           "border",
-          !input && "border-red",
+          shouldShowWhoops && "border-red",
         )}
       >
         <input
@@ -46,11 +50,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
         />
-        <button onClick={() => navigate(`/${input}`)}>
+        <button onClick={() => navigate(input)}>
           <img src={mag} />
         </button>
       </div>
-      {!input && (
+      {shouldShowWhoops && (
         <p className={classNames("text-red")}>Whoops, can&apos;t be empty</p>
       )}
     </>

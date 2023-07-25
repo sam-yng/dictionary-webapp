@@ -5,7 +5,7 @@ import { Main } from "./pages/Main";
 import "../src/index.css";
 import { Nav } from "./components/Nav";
 import classNames from "classnames";
-import { DictionaryResult } from "./pages/DictionaryResult";
+import { DictionaryResult } from "./components/DictionaryResult";
 
 export const App: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ export const App: React.FC = () => {
           <Nav />
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/:search" element={<DictionaryResult />} />
+            <Route path="/:wordQuery" element={<DictionaryResult />} />
           </Routes>
         </div>
       </main>

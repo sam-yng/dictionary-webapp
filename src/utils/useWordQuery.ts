@@ -10,7 +10,12 @@ export type APIQueryResult = {
 	meanings: APIQueryWordMeaning[];
 };
 
-export type APIQueryResponse = APIQueryResult[];
+export type APIQueryResponse = {
+	APIQueryResult: [];
+	title?: string
+	resolution?: string
+	message?: string
+}
 
 export type DictionaryDefinition = {
 	word: string;
@@ -18,7 +23,6 @@ export type DictionaryDefinition = {
 	definition: string;
 }
 
-export const mapQueryResponseToDictionaryDefinition =
-	(query: APIQueryResult): DictionaryDefinition => {
-
-}
+// export const mapQueryResponseToDictionaryDefinition =
+// 	(query: APIQueryResult): DictionaryDefinition => {
+// }

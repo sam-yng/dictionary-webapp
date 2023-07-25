@@ -35,6 +35,7 @@ export const Nav: React.FC = () => {
           )}
         >
           <Select
+            defaultValue={"sansserif"}
             className={classNames("h-10", "overflow-hidden", "text-purple")}
           >
             <MenuItem sx={{ fontFamily: "sansserif" }} value={"sansserif"}>
